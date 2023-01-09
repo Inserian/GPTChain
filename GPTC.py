@@ -62,11 +62,26 @@ class Blockchain:
                 return False
         return True
 
+    def check_halving(self):
+        if self.block_counter % 52000 == 0:
+            self.mining_reward /= 2
+            print(f"Halving occurred, mining reward is now {self.mining_reward}")
+
 blockchain = Blockchain()
 
 print("Mining block 1...")
-blockchain.add_transaction("a", "b", 100)
-blockchain.add_transaction("c", "d", 10)
+blockchain.create_transaction("a", "b", 100)
+blockchain.create_transaction("c", "d", 10)
 blockchain.mine_pending_transactions("x")
 
-print("Mining block
+print("Mining block 2...")
+blockchain.create_transaction("a", "b", 50)
+blockchain.create_transaction("c", "d", 5)
+blockchain.mine_pending_transactions("x")
+
+print("Mining block 3...")
+blockchain.create_transaction("a", "b", 25)
+blockchain.create_transaction("c", "d", 2.5)
+blockchain.mine_pending_transactions("x")
+
+print(f"Blockchain is valid: {blockchain.is_chain_valid()}")
